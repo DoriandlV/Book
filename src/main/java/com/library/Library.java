@@ -15,7 +15,7 @@ public class Library {
 
     public List<Book> books = new ArrayList<>();
 
-    public List<Book> createBook(){
+    public List<Book> createLibrary(){
 
         for(int i =0; i<10; i++) {
             String title = RandomStringUtils.random(10, true, false);
@@ -38,8 +38,10 @@ public class Library {
 
    public synchronized Book takeBookToHome(){
 
+       createLibrary();
         Random rand = new Random();
-        int int_random = rand.nextInt(10);
+        int int_random = rand.nextInt(9);
+
         log.info("Inside takeBookToHome Libray Method");
 
        return books.get(int_random);
@@ -47,8 +49,9 @@ public class Library {
 
     public synchronized Book readBookInLibrary(){
 
+        createLibrary();
         Random rand = new Random();
-        int int_random = rand.nextInt(10);
+        int int_random = rand.nextInt(9);
 
 
         try {
@@ -58,6 +61,7 @@ public class Library {
         }
 
         log.info("Inside readBookIn Libray Method");
+
         return books.get(int_random);
     }
 }
