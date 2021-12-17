@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Library {
 
-    private Book book;
+    private Book book = new Book();
 
     public List<Book> books = new ArrayList<>();
 
