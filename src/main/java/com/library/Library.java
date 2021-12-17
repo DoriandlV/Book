@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +13,9 @@ public class Library {
 
     private Book book = new Book();
 
-    private List<Book> books = new LinkedList<>();
+    public List<Book> books = new ArrayList<>();
+
+    Random rand = new Random();
 
     public List<Book> createLibrary(){
 
@@ -40,7 +41,7 @@ public class Library {
    public synchronized Book takeBookToHome(){
 
 
-        Random rand = new Random();
+
         int int_random = rand.nextInt(9);
 
         log.info("Inside takeBookToHome Libray Method ");
@@ -49,7 +50,6 @@ public class Library {
 
     public synchronized Book readBookInLibrary(){
 
-        Random rand = new Random();
         int int_random = rand.nextInt(9);
 
 
