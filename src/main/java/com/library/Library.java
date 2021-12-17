@@ -43,7 +43,7 @@ public class Library {
         Random rand = new Random();
         int int_random = rand.nextInt(9);
 
-        log.info("Inside takeBookToHome Libray Method " + books.get(int_random));
+        log.info("Inside takeBookToHome Libray Method ");
        return books.get(int_random);
    }
 
@@ -59,7 +59,7 @@ public class Library {
             Thread.currentThread().interrupt();
         }
 
-        log.info("Inside readBookIn Libray Method " + books.get(int_random));
+        log.info("Inside readBookIn Libray Method ");
 
         return books.get(int_random);
     }
