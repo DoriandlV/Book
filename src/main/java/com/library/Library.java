@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -13,15 +14,15 @@ public class Library {
 
     private Book book = new Book();
 
-    public List<Book> books = new ArrayList<>();
+    private List<Book> books = new LinkedList<>();
 
     public List<Book> createLibrary(){
 
         for(int i =0; i<10; i++) {
-            String title = RandomStringUtils.random(10, true, false);
+            String title = RandomStringUtils.random(8, true, false);
             String author = RandomStringUtils.random(10, true, false);
-            String country = RandomStringUtils.random(10, true, false);
-            String genre = RandomStringUtils.random(10, true, false);
+            String country = RandomStringUtils.random(6, true, false);
+            String genre = RandomStringUtils.random(7, true, false);
             String year = RandomStringUtils.random(4, false, true);
 
             book.setTitle(title);
@@ -30,26 +31,24 @@ public class Library {
             book.setYear(year);
             book.setGenre(genre);
 
-            books.add(book);
+        books.add(book);
         }
-
+        log.info("Inside create Library of Books ");
         return books;
     }
 
    public synchronized Book takeBookToHome(){
 
-       createLibrary();
+
         Random rand = new Random();
         int int_random = rand.nextInt(9);
 
-        log.info("Inside takeBookToHome Libray Method" + books.get(int_random));
-
+        log.info("Inside takeBookToHome Libray Method " + books.get(int_random));
        return books.get(int_random);
-    }
+   }
 
     public synchronized Book readBookInLibrary(){
 
-        createLibrary();
         Random rand = new Random();
         int int_random = rand.nextInt(9);
 
@@ -60,7 +59,7 @@ public class Library {
             Thread.currentThread().interrupt();
         }
 
-        log.info("Inside readBookIn Libray Method" + books.get(int_random));
+        log.info("Inside readBookIn Libray Method " + books.get(int_random));
 
         return books.get(int_random);
     }

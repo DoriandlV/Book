@@ -6,6 +6,7 @@ public class BookApplication {
 
 	public static void main(String[] args) {
 
+		library.createLibrary();
 		library.readBookInLibrary();
 		library.takeBookToHome();
 
