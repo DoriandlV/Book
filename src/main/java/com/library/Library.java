@@ -40,18 +40,15 @@ public class Library {
 
    public synchronized Book takeBookToHome(){
 
-
-
         int int_random = rand.nextInt(9);
-
         log.info("Inside takeBookToHome Libray Method ");
+
        return books.get(int_random);
    }
 
     public synchronized Book readBookInLibrary(){
 
         int int_random = rand.nextInt(9);
-
 
         try {
             TimeUnit.MILLISECONDS.sleep(5000);
