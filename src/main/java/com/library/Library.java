@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class Library {
 
-    private Book book = new Book();
-
-    public List<Book> books = new ArrayList<>();
+    public final List<Book> books = new ArrayList<>();
 
     Random rand = new Random();
 
@@ -26,6 +28,7 @@ public class Library {
             String genre = RandomStringUtils.random(7, true, false);
             String year = RandomStringUtils.random(4, false, true);
 
+            Book book = new Book();
             book.setTitle(title);
             book.setAuthor(author);
             book.setCountry(country);
@@ -38,26 +41,52 @@ public class Library {
         return books;
     }
 
-   public synchronized Book takeBookToHome(){
+   public Book takeBookToHome(){
 
-        int int_random = rand.nextInt(9);
-        log.info("Inside takeBookToHome Libray Method ");
+        synchronized (books){
+            int int_random = rand.nextInt(9);
+            log.info("Inside takeBookToHome Libray Method ");
 
-       return books.get(int_random);
-   }
-
-    public synchronized Book readBookInLibrary(){
-
-        int int_random = rand.nextInt(9);
-
-        try {
-            TimeUnit.MILLISECONDS.sleep(5000);
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
+            return books.get(int_random);
         }
 
-        log.info("Inside readBookIn Libray Method ");
+   }
+   public void returnBook(Book book){
 
-        return books.get(int_random);
+       ReadWriteLock lock = new ReentrantReadWriteLock();
+       Lock lock1 = lock.readLock();
+
+        lock1.lock();
+        System.out.println("");
+        lock1.unlock();
+
+   }
+
+   public List<String> returnNames() {
+
+        synchronized (books) {
+            return books
+                    .stream()
+                    .map(Book::getTitle)
+                    .collect(Collectors.toList());
+        }
+
+   }
+
+    public Book readBookInLibrary(){
+
+        synchronized (books) {
+            int int_random = rand.nextInt(9);
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(5000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+
+            log.info("Inside readBookIn Libray Method ");
+
+            return books.get(int_random);
+        }
     }
 }
